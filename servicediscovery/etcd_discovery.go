@@ -1,6 +1,6 @@
 /**
  * @Author Awen
- * @Date 2025/06/18
+ * @Date 2025/04/08
  * @Email wengaolng@gmail.com
  **/
 
@@ -152,8 +152,6 @@ func (d *EtcdDiscovery) register(ctx context.Context, serviceName, instanceID, h
 			GRPCPort:    grpcPort,
 		}
 		d.mutex.Unlock()
-
-		go d.watchKeepAlive(ctx)
 	}
 
 	var leaseResp *clientv3.LeaseGrantResponse
@@ -199,6 +197,10 @@ func (d *EtcdDiscovery) register(ctx context.Context, serviceName, instanceID, h
 	}
 	if err = helper.WithRetry(context.Background(), operation); err != nil {
 		return fmt.Errorf("failed to start keepalive: %v", err)
+	}
+
+	if !isReRegister {
+		go d.watchKeepAlive(ctx)
 	}
 
 	d.outLog(

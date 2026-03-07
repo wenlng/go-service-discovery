@@ -19,8 +19,8 @@ var discovery servicediscovery.ServiceDiscovery
 func setupDiscovery(serviceName, httPort, grpcPort string) error {
 	var err error
 	discovery, err = servicediscovery.NewServiceDiscovery(servicediscovery.Config{
-		//Type:  servicediscovery.ServiceDiscoveryTypeEtcd,
-		//Addrs: "localhost:2379",
+		Type:  servicediscovery.ServiceDiscoveryTypeEtcd,
+		Addrs: "localhost:2379",
 
 		//Type:  servicediscovery.ServiceDiscoveryTypeConsul,
 		//Addrs: "localhost:8500",
@@ -28,10 +28,10 @@ func setupDiscovery(serviceName, httPort, grpcPort string) error {
 		//Type:  servicediscovery.ServiceDiscoveryTypeZookeeper,
 		//Addrs: "localhost:2181",
 
-		Type:     servicediscovery.ServiceDiscoveryTypeNacos,
-		Addrs:    "localhost:8848",
-		Username: "nacos",
-		Password: "nacos",
+		//Type:     servicediscovery.ServiceDiscoveryTypeNacos,
+		//Addrs:    "localhost:8848",
+		//Username: "nacos",
+		//Password: "nacos",
 
 		ServiceName: serviceName,
 	})
